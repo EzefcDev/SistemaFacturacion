@@ -39,4 +39,9 @@ public class ProductController {
         return productService.deleteteProduct(productName);
     }
 
+    @PutMapping(value = "/restar-producto", params = {"productName","amount"})
+    public String subtractProduct(@RequestParam String productName, @RequestParam Long amount){
+        return productService.subtractProduct(productName,amount);
+    }
+
 }

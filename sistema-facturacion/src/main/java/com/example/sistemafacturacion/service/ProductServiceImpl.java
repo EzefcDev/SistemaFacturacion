@@ -82,4 +82,25 @@ public class ProductServiceImpl implements ProductService{
             throw new NotFoundException("El precio del producto no puede ser negativo");
         }
     }
+
+    //Metodo para restar producto del stock
+    public String subtractProduct(String productName, Long amount){
+        Optional<ProductEntity> productExiste = Optional.ofNullable(productRepository.findByProductName(productName));
+        if (productExiste.isPresent()) {
+            ProductEntity product = productRepository.findByProductName(productName);
+            if (amount > 0) {
+                if (product.getProductAmount() > 0 && product.getProductAmount() >= amount) {
+                    product.setProductAmount(product.getProductAmount() - amount);
+                    productRepository.save(product);
+                    return "El stock actual de " + productName + " es " + product.getProductAmount();
+                } else {
+                    throw new NotFoundException("No hay stock suficiente");
+                }
+            } else {
+                throw new NotFoundException("No se puede ingresar un numero negativo");
+            }
+        } else {
+            throw new NotFoundException("El producto no esxite");
+        }
+    }
 }

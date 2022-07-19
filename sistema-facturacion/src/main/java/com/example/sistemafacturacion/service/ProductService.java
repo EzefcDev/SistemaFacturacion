@@ -15,4 +15,6 @@ public interface ProductService {
     String updateProduct(ProductEntity product);
 
     String deleteteProduct(String productName);
+
+    String subtractProduct(String productName, Long amount);
 }
