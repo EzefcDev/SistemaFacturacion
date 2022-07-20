@@ -1,11 +1,13 @@
 package com.example.sistemafacturacion.service;
 
+import com.example.sistemafacturacion.dto.ProductDto;
 import com.example.sistemafacturacion.entity.ProductEntity;
 import com.example.sistemafacturacion.error.NotFoundException;
 import com.example.sistemafacturacion.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,7 +86,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     //Metodo para restar producto del stock
-    public String subtractProduct(String productName, Long amount){
+    public ProductEntity subtractProduct(String productName, Long amount){
         Optional<ProductEntity> productExiste = Optional.ofNullable(productRepository.findByProductName(productName));
         if (productExiste.isPresent()) {
             ProductEntity product = productRepository.findByProductName(productName);
@@ -92,15 +94,31 @@ public class ProductServiceImpl implements ProductService{
                 if (product.getProductAmount() > 0 && product.getProductAmount() >= amount) {
                     product.setProductAmount(product.getProductAmount() - amount);
                     productRepository.save(product);
-                    return "El stock actual de " + productName + " es " + product.getProductAmount();
+//                    return "El stock actual de " + productName + " es " + product.getProductAmount();
+                    return product;
                 } else {
-                    throw new NotFoundException("No hay stock suficiente");
+                    throw new NotFoundException("No hay stock suficiente de "+ productName);
                 }
             } else {
                 throw new NotFoundException("No se puede ingresar un numero negativo");
             }
         } else {
-            throw new NotFoundException("El producto no esxite");
+            throw new NotFoundException("El producto no esxite "+ productName);
         }
     }
+
+    //Metodo para comprar varios productos
+    @Override
+    public List<ProductDto>  buyProducts(List<ProductEntity> products) {
+        List<ProductDto> productBuys = new ArrayList<ProductDto>();
+        Float priceTotal;
+        for (ProductEntity product : products) {
+            ProductEntity productFind = subtractProduct(product.getProductName(), product.getProductAmount());
+            priceTotal = productFind.getProductPrice() * product.getProductAmount();
+            ProductDto productClient = new ProductDto( productFind.getProductName(), priceTotal, product.getProductAmount());
+            productBuys.add(productClient);
+        }
+        return productBuys;
+    }
+
 }

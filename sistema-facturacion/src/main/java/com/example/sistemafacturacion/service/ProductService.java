@@ -1,5 +1,6 @@
 package com.example.sistemafacturacion.service;
 
+import com.example.sistemafacturacion.dto.ProductDto;
 import com.example.sistemafacturacion.entity.ProductEntity;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface ProductService {
 
     String deleteteProduct(String productName);
 
-    String subtractProduct(String productName, Long amount);
+    ProductEntity subtractProduct(String productName, Long amount);
+
+    List<ProductDto>  buyProducts(List<ProductEntity> products);
 }

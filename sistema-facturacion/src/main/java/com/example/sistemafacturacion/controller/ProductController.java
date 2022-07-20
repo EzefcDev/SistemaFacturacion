@@ -1,5 +1,6 @@
 package com.example.sistemafacturacion.controller;
 
+import com.example.sistemafacturacion.dto.ProductDto;
 import com.example.sistemafacturacion.entity.ProductEntity;
 import com.example.sistemafacturacion.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,13 @@ public class ProductController {
     }
 
     @PutMapping(value = "/restar-producto", params = {"productName","amount"})
-    public String subtractProduct(@RequestParam String productName, @RequestParam Long amount){
+    public ProductEntity subtractProduct(@RequestParam String productName, @RequestParam Long amount){
         return productService.subtractProduct(productName,amount);
+    }
+
+    @PostMapping("/comprar-productos")
+    public List<ProductDto> buyProducts(@RequestBody List<ProductEntity> products){
+        return productService.buyProducts(products);
     }
 
 }
