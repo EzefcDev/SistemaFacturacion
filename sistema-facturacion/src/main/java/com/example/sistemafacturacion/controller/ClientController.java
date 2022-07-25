@@ -24,6 +24,11 @@ public class ClientController {
         return clientService.getByClientDni(clientDni);
     }
 
+    @GetMapping("/clientes/{clientName}")
+    public List<ClientEntity> findAllByClientName(@PathVariable (name = "clientName")String clientName){
+        return clientService.getAllByClientName(clientName);
+    }
+
     @PostMapping("/crear-cliente")
     public String createClient(@Valid @RequestBody ClientEntity client){
         return clientService.saveClient(client);

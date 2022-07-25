@@ -15,4 +15,6 @@ public interface ClientService {
     List<ClientEntity> getAllClient();
 
     String update(ClientEntity client);
+
+    List<ClientEntity> getAllByClientName(String clientName);
 }

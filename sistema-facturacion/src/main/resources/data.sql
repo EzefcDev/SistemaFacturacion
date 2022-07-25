@@ -9,7 +9,10 @@ create table client ( client_id int not null auto_increment, client_name varchar
 create table product (product_id int not null auto_increment, product_name varchar(255) not null, product_price float not null, product_amount int not null, product_description varchar(255) not null,PRIMARY KEY(product_id) );
 
 --creo la tabla factura--
-create table factura (factura_id int not null auto_increment, fecha date not null, client_id int not null, product_id int not null, product_price float,product_amount int not null, PRIMARY KEY(factura_id), FOREIGN KEY(client_id) references client(client_id),FOREIGN KEY(product_id) references product(product_id));
+create table invoice (invoice_id int not null auto_increment, invoice_date date not null,company_id int not null , client_id int not null, price_total float, PRIMARY KEY(invoice_id),FOREIGN KEY(company_id) references company, FOREIGN KEY(client_id) references client);
+
+--creo la tabla factura detalle--
+create table invoice_detail (invoice_detail_id int not null auto_increment, invoice_id int , product_name varchar(255) not null, price float, amount int not null, PRIMARY KEY(invoice_detail_id),FOREIGN KEY(invoice_id) references invoice(invoice_id));
 
 
 --inserto los valores en la tabla empresa--
@@ -36,7 +39,3 @@ values ('Taza', 500, 10, 'Tazas con logos de super heroes'),
        ('Ajedrez', 1200, 3, 'Ajedrez medival'),
        ('Maceta', 700, 6, 'Maceta de pokemon'),
        ('Azucarera', 200, 5, 'Azucarera varios colores');
-
---inserto los valores en la tabla factura --
-insert into factura ( fecha , client_id, product_id, product_price, product_amount)
-values ('2022-07-12', 1, 1, 500, 4);

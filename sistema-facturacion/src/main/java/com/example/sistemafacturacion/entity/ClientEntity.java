@@ -41,4 +41,5 @@ public class ClientEntity {
     @NotNull
     @Size(min = 5, max =10)
     private String clientDirection;
+
 }

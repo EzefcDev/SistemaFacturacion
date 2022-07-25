@@ -28,6 +28,15 @@ public class ClientServiceImpl implements ClientService{
         return client.orElseThrow(() -> new NotFoundException("El cliente no existe"));
     }
 
+    @Override
+    public List<ClientEntity> getAllByClientName(String clientName) {
+        if(clientName.matches("^([A-Z]{1}[a-zñáéíóú]+[\\s]*)+$")){
+            return clientRepository.findByClientName(clientName);
+        }else{
+            throw new NotFoundException("El nombre ingresado debe contener solo letras");
+        }
+    }
+
     //Metodo que almacena un nuevo cliente
     @Override
     public String saveClient(ClientEntity client) {

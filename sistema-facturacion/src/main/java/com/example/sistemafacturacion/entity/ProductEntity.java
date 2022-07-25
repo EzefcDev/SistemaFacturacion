@@ -39,4 +39,5 @@ public class ProductEntity {
     @Column(name = "product_amount")
     @NotNull
     private Long productAmount;
+
 }
