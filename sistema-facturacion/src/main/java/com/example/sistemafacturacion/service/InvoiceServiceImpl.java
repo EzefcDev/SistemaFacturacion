@@ -54,12 +54,15 @@ public class InvoiceServiceImpl implements InvoiceService{
         }
 
         float priceTotal = 0;
+        Long amountTotal = 0L;
         invoice.setInvoiceDetail(new HashSet<>());
-        for(InvoiceDetailEntity price : invoiceDetails){
-            priceTotal += price.getPrice();
-            invoice.addInvoiceDetail(price);
+        for(InvoiceDetailEntity invoiceDetail : invoiceDetails){
+            priceTotal += invoiceDetail .getPrice();
+            amountTotal += invoiceDetail .getAmount();
+            invoice.addInvoiceDetail(invoiceDetail );
         }
 
+        invoice.setAmountTotal(amountTotal);
         invoice.setPriceTotal(priceTotal);
         invoice.setInvoiceDetail(invoiceDetails);
         invoiceRepository.save(invoice);

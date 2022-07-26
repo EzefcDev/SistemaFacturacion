@@ -38,6 +38,9 @@ public class InvoiceEntity implements Serializable {
     @OneToMany(mappedBy ="invoice", cascade = CascadeType.ALL)
     private Set<InvoiceDetailEntity> invoiceDetail;
 
+    @Column(name = "amount_total")
+    private Long amountTotal;
+
     @Column(name = "price_total")
     private Float priceTotal;
 
