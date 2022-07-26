@@ -28,6 +28,7 @@ public class ClientServiceImpl implements ClientService{
         return client.orElseThrow(() -> new NotFoundException("El cliente no existe"));
     }
 
+    //Metodo para buscar todos los clientes por un nombre
     @Override
     public List<ClientEntity> getAllByClientName(String clientName) {
         if(clientName.matches("^([A-Z]{1}[a-zñáéíóú]+[\\s]*)+$")){

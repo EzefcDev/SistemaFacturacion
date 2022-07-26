@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -68,6 +69,12 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoiceRepository.save(invoice);
 
         return invoice;
+    }
+
+    @Override
+    public List<InvoiceEntity> getAllInvoice(String clientDni) {
+        ClientEntity client = clientService.getByClientDni(clientDni);
+        return invoiceRepository.findByClient(client);
     }
 
 

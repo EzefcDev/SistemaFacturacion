@@ -64,6 +64,13 @@
 					"port": "8080",
 					"path": [
 						"clientes"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -95,7 +102,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientName\": \"Maria\",\r\n    \"clientLastName\": \"Del Barrio\",\r\n    \"clientDni\": \"10366788\",\r\n    \"clientDirection\": \"calle 99\"\r\n}",
+					"raw": "{\r\n    \"clientName\": \"Maria\",\r\n    \"clientLastName\": \"Real\",\r\n    \"clientDni\": \"10366721\",\r\n    \"clientDirection\": \"calle 99\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -185,14 +192,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/producto/Taza",
+					"raw": "localhost:8080/producto/Mate",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"producto",
-						"Taza"
+						"Mate"
 					]
 				}
 			},
@@ -232,7 +239,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"productName\": \"Pelota\",\r\n    \"productDescription\": \"Pelota con logos de super heroes\",\r\n    \"productPrice\": 500.0,\r\n    \"productAmount\": 10\r\n}",
+					"raw": "{\r\n    \"productName\": \"Taza\",\r\n        \"productDescription\": \"Tazas con logos de super heroes\",\r\n        \"productPrice\": 200.0,\r\n        \"productAmount\": 2\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -266,6 +273,153 @@
 					"path": [
 						"eliminar-producto",
 						"Pelota"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restar-producto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/restar-producto?productName=Ajedrez&amount=3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restar-producto"
+					],
+					"query": [
+						{
+							"key": "productName",
+							"value": "Ajedrez"
+						},
+						{
+							"key": "amount",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lista-productos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n {\r\n        \"productName\": \"Taza\",\r\n        \"productAmount\": 3\r\n    },\r\n    {\r\n        \r\n        \"productName\": \"Mate\",\r\n        \"productAmount\": 2\r\n    },\r\n    {\r\n        \"productName\": \"Termo\",\r\n        \"productAmount\": 1\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/comprar-productos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comprar-productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/fecha",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"fecha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lista-clientes-por-nombre",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/clientes/Maria",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"Maria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear-factura",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientDni\":\"40789789\",\r\n   \"products\":\r\n   [\r\n        {\r\n            \"productName\": \"Mate\",\r\n            \"productAmount\":1\r\n        },\r\n        {\r\n            \"productName\": \"Yerbera\",\r\n            \"productAmount\":1\r\n        },\r\n        {\r\n            \"productName\": \"Soporte Auriculares\",\r\n            \"productAmount\":1\r\n        },\r\n        {\r\n            \"productName\": \"Lapicero\",\r\n            \"productAmount\":1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/factura",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"factura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta-facturas-por-cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/factura-por-cliente/20896749",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"factura-por-cliente",
+						"20896749"
 					]
 				}
 			},
