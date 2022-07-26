@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,9 +41,15 @@ public class InvoiceEntity implements Serializable {
     @Column(name = "price_total")
     private Float priceTotal;
 
-//    public InvoiceDetailEntity agregarDetalle(InvoiceDetailEntity invoiceDetail){
-//        getInvoiceDetail().add(invoiceDetail);
-//        invoiceDetail.setInvoice(this);
-//        return invoiceDetail;
-//    }
+    public InvoiceDetailEntity addInvoiceDetail(InvoiceDetailEntity invoice){
+        getInvoiceDetail().add(invoice);
+        invoice.setInvoice(this);
+        return invoice;
+    }
+
+    public InvoiceDetailEntity removeInvoiceDetail(InvoiceDetailEntity invoice){
+        getInvoiceDetail().remove(invoice);
+        invoice.setInvoice(null);
+        return invoice;
+    }
 }

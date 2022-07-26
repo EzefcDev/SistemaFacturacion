@@ -1,6 +1,5 @@
 package com.example.sistemafacturacion.service;
 
-
 import com.example.sistemafacturacion.dto.InvoiceDto;
 import com.example.sistemafacturacion.entity.ClientEntity;
 import com.example.sistemafacturacion.entity.InvoiceDetailEntity;
@@ -13,9 +12,7 @@ import com.example.sistemafacturacion.util.WorldClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -44,7 +41,6 @@ public class InvoiceServiceImpl implements InvoiceService{
 
         Set<InvoiceDetailEntity> invoiceDetails = new HashSet<>();
         float priceTotalByProduct;
-//        invoice.setInvoiceDetail(new HashSet<>());
         for(ProductEntity product : invoiceDto.getProducts()){
             ProductEntity productFind = productService.subtractProduct(product.getProductName(), product.getProductAmount());
             priceTotalByProduct = productFind.getProductPrice() * product.getProductAmount();
@@ -53,23 +49,23 @@ public class InvoiceServiceImpl implements InvoiceService{
             invoiceDetail.setProductName(productFind.getProductName());
             invoiceDetail.setAmount(product.getProductAmount());
             invoiceDetail.setPrice(priceTotalByProduct);
-//            invoice.agregarDetalle(invoiceDetail);
+
             invoiceDetails.add(invoiceDetail);
-//            invoiceDetailRepository.save(invoiceDetail);
         }
 
         float priceTotal = 0;
+        invoice.setInvoiceDetail(new HashSet<>());
         for(InvoiceDetailEntity price : invoiceDetails){
-             priceTotal += price.getPrice();
+            priceTotal += price.getPrice();
+            invoice.addInvoiceDetail(price);
         }
 
         invoice.setPriceTotal(priceTotal);
         invoice.setInvoiceDetail(invoiceDetails);
         invoiceRepository.save(invoice);
-        invoiceRepository.
 
-//        invoice.setInvoiceDetail(invoiceDetails);
         return invoice;
     }
+
 
 }

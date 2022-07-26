@@ -34,7 +34,7 @@ public class InvoiceDetailEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "invoice_id")
+    @JsonBackReference
     private InvoiceEntity invoice;
-
 
 }
