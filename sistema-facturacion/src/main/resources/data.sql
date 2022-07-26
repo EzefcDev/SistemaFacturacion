@@ -12,7 +12,7 @@ create table product (product_id int not null auto_increment, product_name varch
 create table invoice (invoice_id int not null auto_increment, invoice_date date not null,company_id int not null , client_id int not null, price_total float, PRIMARY KEY(invoice_id),FOREIGN KEY(company_id) references company, FOREIGN KEY(client_id) references client);
 
 --creo la tabla factura detalle--
-create table invoice_detail (invoice_detail_id int not null auto_increment, invoice_id int , product_name varchar(255) not null, price float, amount int not null, PRIMARY KEY(invoice_detail_id),FOREIGN KEY(invoice_id) references invoice(invoice_id));
+create table invoice_detail (invoice_detail_id int not null auto_increment, invoice_id int , product_name varchar(255) not null, price float, amount int not null, PRIMARY KEY(invoice_detail_id),FOREIGN KEY(invoice_id) references invoice);
 
 
 --inserto los valores en la tabla empresa--

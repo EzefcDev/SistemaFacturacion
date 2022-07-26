@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,9 +36,15 @@ public class InvoiceEntity implements Serializable {
     @JoinColumn(name = "client_id")
     private ClientEntity client;
 
-    @OneToMany(mappedBy ="invoice")
-    private List<InvoiceDetailEntity> invoiceDetail;
+    @OneToMany(mappedBy ="invoice", cascade = CascadeType.ALL)
+    private Set<InvoiceDetailEntity> invoiceDetail;
 
     @Column(name = "price_total")
     private Float priceTotal;
+
+//    public InvoiceDetailEntity agregarDetalle(InvoiceDetailEntity invoiceDetail){
+//        getInvoiceDetail().add(invoiceDetail);
+//        invoiceDetail.setInvoice(this);
+//        return invoiceDetail;
+//    }
 }

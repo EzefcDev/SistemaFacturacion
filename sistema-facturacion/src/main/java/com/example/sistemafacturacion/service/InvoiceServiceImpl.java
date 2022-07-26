@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
@@ -35,9 +37,14 @@ public class InvoiceServiceImpl implements InvoiceService{
     public InvoiceEntity createdInovice(InvoiceDto invoiceDto){
         ClientEntity client = clientService.getByClientDni(invoiceDto.getClientDni());
         InvoiceEntity invoice = new InvoiceEntity();
+        invoice.setCompany(companyService.getCompanyByName("Almacen 3D"));
+        invoice.setClient(client);
+        invoice.setInvoiceDate(worldClockService.getcurrentDateTime());
 
-        List<InvoiceDetailEntity> invoiceDetails = new ArrayList<>();
+
+        Set<InvoiceDetailEntity> invoiceDetails = new HashSet<>();
         float priceTotalByProduct;
+//        invoice.setInvoiceDetail(new HashSet<>());
         for(ProductEntity product : invoiceDto.getProducts()){
             ProductEntity productFind = productService.subtractProduct(product.getProductName(), product.getProductAmount());
             priceTotalByProduct = productFind.getProductPrice() * product.getProductAmount();
@@ -46,9 +53,9 @@ public class InvoiceServiceImpl implements InvoiceService{
             invoiceDetail.setProductName(productFind.getProductName());
             invoiceDetail.setAmount(product.getProductAmount());
             invoiceDetail.setPrice(priceTotalByProduct);
-
+//            invoice.agregarDetalle(invoiceDetail);
             invoiceDetails.add(invoiceDetail);
-            invoiceDetailRepository.save(invoiceDetail);
+//            invoiceDetailRepository.save(invoiceDetail);
         }
 
         float priceTotal = 0;
@@ -56,15 +63,13 @@ public class InvoiceServiceImpl implements InvoiceService{
              priceTotal += price.getPrice();
         }
 
-        invoice.setCompany(companyService.getCompanyByName("Almacen 3D"));
-        invoice.setClient(client);
-        invoice.setInvoiceDate(worldClockService.getcurrentDateTime());
         invoice.setPriceTotal(priceTotal);
         invoice.setInvoiceDetail(invoiceDetails);
         invoiceRepository.save(invoice);
+        invoiceRepository.
+
+//        invoice.setInvoiceDetail(invoiceDetails);
         return invoice;
     }
-
-
 
 }
