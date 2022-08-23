@@ -42,4 +42,8 @@ public class ClientEntity {
     @Size(min = 5, max =10)
     private String clientDirection;
 
+    @Column(name = "client_password")
+    @NotNull
+    private String clientPassword;
+
 }

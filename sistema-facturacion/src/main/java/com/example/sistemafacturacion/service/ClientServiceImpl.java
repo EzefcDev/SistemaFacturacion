@@ -4,6 +4,8 @@ import com.example.sistemafacturacion.entity.ClientEntity;
 import com.example.sistemafacturacion.error.NotFoundException;
 import com.example.sistemafacturacion.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,13 @@ public class ClientServiceImpl implements ClientService{
 
     @Autowired
     ClientRepository clientRepository;
+
+    PasswordEncoder passwordEncoder;
+
+    public ClientServiceImpl(ClientRepository clientRepository){
+        this.clientRepository = clientRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     //Metodo que devuelve todos los clientes
     @Override
@@ -46,6 +55,8 @@ public class ClientServiceImpl implements ClientService{
             throw new NotFoundException("El cliente ya existe");
         }else {
             ClientEntity clientValidated = validator(client);
+            String encodedPassword = this.passwordEncoder.encode((clientValidated.getClientPassword()));
+            clientValidated.setClientPassword(encodedPassword);
             clientRepository.save(clientValidated);
             return "El cliente fue creado";
         }

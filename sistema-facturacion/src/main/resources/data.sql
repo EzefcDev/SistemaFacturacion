@@ -3,7 +3,7 @@
 create table company ( company_id int not null auto_increment, company_name varchar(255) not null,company_business_name varchar(255) not null, company_heading varchar(255) not null, PRIMARY KEY(company_id) );
 
 --creo la tabla cliente--
-create table client ( client_id int not null auto_increment, client_name varchar(255) not null, client_last_name varchar(255) not null, client_dni varchar(255) not null, client_direction varchar(255) not null, PRIMARY KEY(client_id) );
+create table client ( client_id int not null auto_increment, client_name varchar(255) not null, client_last_name varchar(255) not null, client_dni varchar(255) not null, client_direction varchar(255) not null, client_password varchar(255) not null , PRIMARY KEY(client_id) );
 
 --creo la tabla producto--
 create table product (product_id int not null auto_increment, product_name varchar(255) not null, product_price float not null, product_amount int not null, product_description varchar(255) not null,PRIMARY KEY(product_id) );
@@ -20,12 +20,12 @@ insert into company ( company_name , company_business_name, company_heading)
 values ('Almacen 3D', 'Almacen 3D S.A', 'Articulos generales 3D');
 
 --inserto los valores en la tabla cliente--
-insert into client ( client_name , client_last_name ,client_dni, client_direction)
-values ('Juan','Bartolo', 20346789,'Av Mitre 200'),
-       ('Maria','Del Barrio',10366778,'calle 99'),
-       ('Marlon','Sacarias',30344589,'calle 39'),
-       ('Lara','Penia',40789789,'calle 190'),
-       ('Totoro','Astro',20896749,'Cocoro 123');
+insert into client ( client_name , client_last_name ,client_dni, client_direction, client_password )
+values ('Juan','Bartolo', 20346789,'Av Mitre 200', '123456789'),
+       ('Maria','Del Barrio',10366778,'calle 99', '123456789'),
+       ('Marlon','Sacarias',30344589,'calle 39', '123456789'),
+       ('Lara','Penia',40789789,'calle 190', '123456789'),
+       ('Totoro','Astro',20896749,'Cocoro 123', '123456789');
 
 --inserto los valores en la tabla producto--
 insert into product (product_name, product_price, product_amount, product_description)
