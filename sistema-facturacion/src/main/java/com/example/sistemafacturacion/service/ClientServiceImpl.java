@@ -34,7 +34,7 @@ public class ClientServiceImpl implements ClientService{
         if(clientName.matches("^([A-Z]{1}[a-zñáéíóú]+[\\s]*)+$")){
             return clientRepository.findByClientName(clientName);
         }else{
-            throw new NotFoundException("El nombre ingresado debe contener solo letras");
+            throw new NotFoundException("El nombre debe contener caracteres alfabeticos");
         }
     }
 
@@ -43,7 +43,7 @@ public class ClientServiceImpl implements ClientService{
     public String saveClient(ClientEntity client) {
         Optional<ClientEntity>clientExist = Optional.ofNullable(clientRepository.findByClientDni(client.getClientDni()));
         if (clientExist.isPresent() ){
-            throw new NotFoundException("El cliente ya existe");
+            throw new NotFoundException("Cliente existente");
         }else {
             ClientEntity clientValidated = validator(client);
             clientRepository.save(clientValidated);

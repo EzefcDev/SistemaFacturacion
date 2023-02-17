@@ -24,7 +24,7 @@ public class CompanyServiceImpl implements CompanyService {
             companyRepository.save(company);
             return "La empresa se actualizo correctamente";
         }else {
-            throw new NotFoundException("La empresa no existe");
+            throw new NotFoundException("Empresa no existente");
         }
     }
 
